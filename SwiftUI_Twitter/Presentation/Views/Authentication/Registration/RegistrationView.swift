@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  RegistrationView.swift
 //  SwiftUI_Twitter
 //
 //  Created by Tariyel Islami on 15.03.2023.
@@ -7,37 +7,28 @@
 
 import SwiftUI
 
-struct LoginView: View {
+struct RegistrationView: View {
     
     @State var email: String = ""
     @State var password: String = ""
+
     
     var body: some View {
+        
         VStack{
-            GreetingView(title: "Hello \nWelcome Back")
+            GreetingView(title: "Get Started. \nCreate your account")
             
             VStack(spacing: 32){
                 AuthTextField(iconName: "envelope", value: email, placeHolder: "Email")
+                AuthTextField(iconName: "person", value: email, placeHolder: "Username")
                 AuthTextField(iconName: "lock", value: email, placeHolder: "Password")
             }
-            .padding(.horizontal,32)
-            
-
-            NavigationLink(
-                destination: { Text("Forgot Password")},
-                label: {
-                    Text("Forgot Password?")
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color(.systemBlue))
-                        .frame(maxWidth: .infinity,alignment: .trailing)
-                }
-            ).padding(.trailing,32)
-            .padding(.vertical,24)
+            .padding(.horizontal, 32)
+            .padding(.vertical)
             
             
-            PrimaryButton(text: "Sign in", onClick: {})
-                .padding(.horizontal,32)
+            PrimaryButton(text: "Sign up",onClick: {})
+                .padding(32)
             
             Spacer()
             
@@ -45,8 +36,8 @@ struct LoginView: View {
                 destination: { Text("Forgot Password")},
                 label: {
                     HStack{
-                        Text("Don't have an account?")
-                        Text("Sign Up")
+                        Text("Do you have an account?")
+                        Text("Sign In")
                             .fontWeight(.semibold)
                     }
                     .font(.footnote)
@@ -54,12 +45,13 @@ struct LoginView: View {
                 }
             )
             .padding(.horizontal,32)
+
         }
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        RegistrationView()
     }
 }

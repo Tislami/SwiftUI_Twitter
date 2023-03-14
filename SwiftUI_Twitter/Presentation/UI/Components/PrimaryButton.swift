@@ -9,9 +9,11 @@ import SwiftUI
 
 struct PrimaryButton: View {
     let text : String
+    let onClick : ()-> Void
+    
     var body: some View {
         Button(
-            action: {},
+            action: onClick,
             label: {
                 Text(text)
                     .font(.headline)
@@ -24,14 +26,13 @@ struct PrimaryButton: View {
                         RoundedRectangle(cornerRadius: 80)
                             .foregroundColor(.blue)
                     )
-
             }
-        )
+        ).shadow(color: .gray.opacity(0.5), radius: 10)
     }
 }
 
 struct PrimaryButton_Previews: PreviewProvider {
     static var previews: some View {
-        PrimaryButton(text: "Sign in")
+        PrimaryButton(text: "Sign in", onClick: {})
     }
 }
