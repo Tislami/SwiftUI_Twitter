@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum TweetFilterViewModel : Int, CaseIterable{
+enum TweetFilterItems : Int, CaseIterable{
     case tweets
     case replies
     case likes

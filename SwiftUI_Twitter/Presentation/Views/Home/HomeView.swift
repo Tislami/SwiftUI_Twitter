@@ -9,13 +9,19 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        ScrollView{
-            ForEach(0...20, id: \.self){ _ in
-                TweetsRowView().padding(.horizontal)
-                Divider()
-
+        ZStack(alignment: .bottomTrailing){
+            ScrollView{
+                ForEach(0...20, id: \.self){ _ in
+                    TweetsRowView().padding(.horizontal)
+                    Divider()
+                    
+                }
             }
+            
+            FloatingActionButton()
+                .padding()
         }
+        
     }
 }
 

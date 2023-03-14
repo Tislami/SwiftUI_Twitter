@@ -47,7 +47,8 @@ private struct HeadView: View {
                         label: { Image(systemName: "arrow.left")
                                 .resizable()
                                 .frame(width: 20,height: 20)
-                                .foregroundColor(.black)
+                                .foregroundColor(.white)
+                                .offset(x:-20)
                             
                         }
                     )
@@ -120,38 +121,21 @@ private struct UserInfoDetailView : View{
             .font(.caption)
             .foregroundColor(.gray)
             
-            HStack(spacing: 16){
-                
-                HStack{
-                    Text("2").font(.subheadline).bold()
-                    
-                    Text("Following")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-                
-                HStack{
-                    Text("12").font(.subheadline).bold()
-                    
-                    Text("Followers")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-            }
+            UserStatsView()
         }
     }
 }
 
 
 private struct BodyView: View {
-    @State private(set) var selectedFilter: TweetFilterViewModel = .tweets
+    @State private(set) var selectedFilter: TweetFilterItems = .tweets
     @Namespace private var animation
     
     var body: some View {
         
         VStack{
             HStack {
-                ForEach(TweetFilterViewModel.allCases, id: \.rawValue) { item in
+                ForEach(TweetFilterItems.allCases, id: \.rawValue) { item in
                     VStack {
                         Text(item.title)
                             .font(.subheadline)
