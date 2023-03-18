@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    
-    @State var email: String = ""
-    @State var password: String = ""
-
+    @ObservedObject var viewModel = AuthViewModel()
     
     var body: some View {
         
@@ -19,9 +16,9 @@ struct RegistrationView: View {
             GreetingView(title: "Get Started. \nCreate your account")
             
             VStack(spacing: 32){
-                AuthTextField(iconName: "envelope", value: email, placeHolder: "Email")
-                AuthTextField(iconName: "person", value: email, placeHolder: "Username")
-                AuthTextField(iconName: "lock", value: email, placeHolder: "Password")
+                AuthTextField(iconName: "envelope", value: $viewModel.authState.email, placeHolder: "Email")
+                AuthTextField(iconName: "person", value: $viewModel.authState.fullName, placeHolder: "Username")
+                AuthTextField(iconName: "lock", value: $viewModel.authState.password, placeHolder: "Password",isSceuryField: true)
             }
             .padding(.horizontal, 32)
             .padding(.vertical)
@@ -33,7 +30,7 @@ struct RegistrationView: View {
             Spacer()
             
             NavigationLink(
-                destination: { Text("Forgot Password")},
+                destination: { LoginView() },
                 label: {
                     HStack{
                         Text("Do you have an account?")
@@ -45,7 +42,6 @@ struct RegistrationView: View {
                 }
             )
             .padding(.horizontal,32)
-
         }
     }
 }

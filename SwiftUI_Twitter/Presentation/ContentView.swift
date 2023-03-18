@@ -9,11 +9,38 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @ObservedObject var authViewModel: AuthViewModel = AuthViewModel()
+    
+    var body: some View {
+        Group{
+            if authViewModel.authState.user == nil{
+                LoginView()
+            }
+            else {
+                MainInterfaceView()
+            }
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView{
+            ContentView()
+        }
+    }
+}
+
+
+
+private struct MainInterfaceView:  View {
+    
     @State private var showSideMenu : Bool = false
     @State private var showNewTweetView: Bool = false
     
     var body: some View {
         ZStack(alignment: .topLeading){
+            
             MainTabView()
                 .navigationBarHidden(showSideMenu)
             
@@ -50,13 +77,5 @@ struct ContentView: View {
             }
         }
         .onAppear{ showSideMenu = false }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView{
-            ContentView()
-        }
     }
 }

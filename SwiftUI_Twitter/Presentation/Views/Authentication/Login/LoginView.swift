@@ -9,51 +9,64 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State var email: String = ""
-    @State var password: String = ""
+    @ObservedObject var viewModel = AuthViewModel()
     
     var body: some View {
-        VStack{
-            GreetingView(title: "Hello \nWelcome Back")
-            
-            VStack(spacing: 32){
-                AuthTextField(iconName: "envelope", value: email, placeHolder: "Email")
-                AuthTextField(iconName: "lock", value: email, placeHolder: "Password")
-            }
-            .padding(.horizontal,32)
-            
-
-            NavigationLink(
-                destination: { Text("Forgot Password")},
-                label: {
-                    Text("Forgot Password?")
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color(.systemBlue))
-                        .frame(maxWidth: .infinity,alignment: .trailing)
+        Form{
+            VStack{
+                GreetingView(title: "Hello \nWelcome Back")
+                
+                VStack(spacing: 32){
+                    AuthTextField(
+                        iconName: "envelope",
+                        value: $viewModel.authState.email,
+                        placeHolder: "Email"
+                    )
+                    
+                    AuthTextField(
+                        iconName: "lock",
+                        value: $viewModel.authState.password,
+                        placeHolder: "Password",
+                        isSceuryField: true
+                    )
                 }
-            ).padding(.trailing,32)
-            .padding(.vertical,24)
-            
-            
-            PrimaryButton(text: "Sign in", onClick: {})
                 .padding(.horizontal,32)
-            
-            Spacer()
-            
-            NavigationLink(
-                destination: { Text("Forgot Password")},
-                label: {
-                    HStack{
-                        Text("Don't have an account?")
-                        Text("Sign Up")
+                
+                NavigationLink(
+                    destination: { Text("Forgot Password")},
+                    label: {
+                        Text("Forgot Password?")
+                            .font(.caption)
                             .fontWeight(.semibold)
+                            .foregroundColor(Color(.systemBlue))
+                            .frame(maxWidth: .infinity,alignment: .trailing)
                     }
-                    .font(.footnote)
-                    .foregroundColor(Color(.systemBlue))
+                ).padding(.trailing,32)
+                    .padding(.vertical,24)
+                
+                
+                PrimaryButton(text: "Sign in", onClick: {
+                    print("on sign in")
+                    //viewModel.login()
                 }
-            )
-            .padding(.horizontal,32)
+                ).padding(.horizontal,32)
+                
+                Spacer()
+                
+                NavigationLink(
+                    destination: { RegistrationView() },
+                    label: {
+                        HStack{
+                            Text("Don't have an account?")
+                            Text("Sign Up")
+                                .fontWeight(.semibold)
+                        }
+                        .font(.footnote)
+                        .foregroundColor(Color(.systemBlue))
+                    }
+                )
+                .padding(.horizontal,32)
+            }
         }
     }
 }
