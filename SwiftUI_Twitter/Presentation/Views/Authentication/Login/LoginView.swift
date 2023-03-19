@@ -5,14 +5,15 @@
 //  Created by Tariyel Islami on 15.03.2023.
 //
 
+
 import SwiftUI
 
 struct LoginView: View {
-    
-    @ObservedObject var viewModel = AuthViewModel()
+    @ObservedObject var viewModel: AuthViewModel
+    @State var isShowAlert : Bool = false
     
     var body: some View {
-        Form{
+        ZStack{
             VStack{
                 GreetingView(title: "Hello \nWelcome Back")
                 
@@ -45,16 +46,19 @@ struct LoginView: View {
                     .padding(.vertical,24)
                 
                 
-                PrimaryButton(text: "Sign in", onClick: {
-                    print("on sign in")
-                    //viewModel.login()
-                }
-                ).padding(.horizontal,32)
+                PrimaryButton(
+                    text: "Sign in",
+                    onClick: {
+                        viewModel.signIn()
+                        print("sign in clicked")
+                    }
+                )
+                .padding(.horizontal,32)
                 
                 Spacer()
                 
                 NavigationLink(
-                    destination: { RegistrationView() },
+                    destination: { RegistrationView(viewModel: viewModel) },
                     label: {
                         HStack{
                             Text("Don't have an account?")
@@ -65,7 +69,17 @@ struct LoginView: View {
                         .foregroundColor(Color(.systemBlue))
                     }
                 )
-                .padding(.horizontal,32)
+            }
+            .alert(isPresented: $viewModel.authState.presentAlert) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(viewModel.authState.errorMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            
+            if viewModel.authState.isLoading {
+                ProgressView()
             }
         }
     }
@@ -73,6 +87,15 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(viewModel: AuthViewModel())
     }
 }
+
+
+// private struct LoginContentView : View {
+//     @State var viewModel: AuthViewModel
+//
+//     var body: some View {
+//
+//     }
+// }

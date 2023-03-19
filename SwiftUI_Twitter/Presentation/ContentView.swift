@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @ObservedObject var authViewModel: AuthViewModel = AuthViewModel()
-    
     var body: some View {
         Group{
             if authViewModel.authState.user == nil{
-                LoginView()
+                LoginView(viewModel: authViewModel)
             }
             else {
                 MainInterfaceView()
@@ -30,8 +28,6 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
-
-
 
 private struct MainInterfaceView:  View {
     

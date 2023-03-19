@@ -8,8 +8,8 @@
 import Foundation
 
 
-struct User : Codable {
-    var id: String = ""
-    var email : String = ""
-    var name : String = ""
+struct User : Codable, Identifiable {
+    var id: String
+    var email : String
+    var name : String
 }
