@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         
@@ -30,7 +30,7 @@ struct RegistrationView: View {
             Spacer()
             
             NavigationLink(
-                destination: { LoginView(viewModel: AuthViewModel()) },
+                destination: { LoginView() },
                 label: {
                     HStack{
                         Text("Do you have an account?")
@@ -48,6 +48,6 @@ struct RegistrationView: View {
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView(viewModel: AuthViewModel())
+        RegistrationView()
     }
 }

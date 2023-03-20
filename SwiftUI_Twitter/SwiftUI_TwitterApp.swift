@@ -10,9 +10,16 @@ import FirebaseCore
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    
+    override init() {
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+    }
+    
+    
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
 
     return true
   }
@@ -22,12 +29,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct SwiftUI_TwitterApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @ObservedObject var authViewModel: AuthViewModel = AuthViewModel()
+
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 ContentView()
-                   // .environmentObject(authViewModel)
             }
+            .environmentObject(authViewModel)
         }
     }
 }

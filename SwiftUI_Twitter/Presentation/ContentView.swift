@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var authViewModel: AuthViewModel = AuthViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
         Group{
-            if authViewModel.authState.user == nil{
-                LoginView(viewModel: authViewModel)
+            if authViewModel.authState.id == nil{
+                LoginView()
             }
             else {
                 MainInterfaceView()
+                    .onAppear{
+                        print("onAppear")
+                    }
             }
         }
     }

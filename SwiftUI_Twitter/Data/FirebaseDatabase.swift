@@ -18,6 +18,10 @@ class FirebaseDatabase {
     let postCollection: CollectionReference
     
     init() {
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+        
         db = Firestore.firestore()
         auth = Auth.auth()
         userCollection = db.collection("users")

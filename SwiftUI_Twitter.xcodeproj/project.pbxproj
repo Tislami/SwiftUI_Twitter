@@ -40,6 +40,8 @@
 		ADA23D7729C4FDC200E21C25 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA23D7629C4FDC200E21C25 /* FirebaseDatabase.swift */; };
 		ADBAA6DD29C2730200FD1B61 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBAA6DC29C2730200FD1B61 /* AuthViewModel.swift */; };
 		ADBAA6DF29C27C5300FD1B61 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBAA6DE29C27C5300FD1B61 /* AuthState.swift */; };
+		ADC945A629C88239004FE89A /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC945A529C88239004FE89A /* UserViewModel.swift */; };
+		ADC945A829C8826F004FE89A /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC945A729C8826F004FE89A /* UserState.swift */; };
 		ADE84E8A29BF19FE00EF8025 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE84E8929BF19FE00EF8025 /* SideMenuViewModel.swift */; };
 		ADE84E8D29BF1B4400EF8025 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE84E8C29BF1B4400EF8025 /* SideMenuView.swift */; };
 		ADE84E8F29BF1C2C00EF8025 /* UserStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE84E8E29BF1C2C00EF8025 /* UserStatsView.swift */; };
@@ -78,6 +80,8 @@
 		ADA23D7629C4FDC200E21C25 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		ADBAA6DC29C2730200FD1B61 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		ADBAA6DE29C27C5300FD1B61 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
+		ADC945A529C88239004FE89A /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		ADC945A729C8826F004FE89A /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		ADE84E8929BF19FE00EF8025 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
 		ADE84E8C29BF1B4400EF8025 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		ADE84E8E29BF1C2C00EF8025 /* UserStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsView.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 		AD1DB506299FBB1F001224DC /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				ADC945A429C88228004FE89A /* ViewModel */,
 				AD16997529BC813500BC8FB1 /* Views */,
 				AD16997429BC812F00BC8FB1 /* UI */,
 				ADE84E9029BF20FC00EF8025 /* ContentView.swift */,
@@ -233,8 +238,9 @@
 		AD1DB509299FBB27001224DC /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				ADA23D7329C4FCDC00E21C25 /* Repository */,
 				AD16997629BC813E00BC8FB1 /* Model */,
+				ADA23D7329C4FCDC00E21C25 /* Repository */,
+				ADC945A329C87C4E004FE89A /* UseCase */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -331,6 +337,22 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		ADC945A329C87C4E004FE89A /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		ADC945A429C88228004FE89A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				ADC945A529C88239004FE89A /* UserViewModel.swift */,
+				ADC945A729C8826F004FE89A /* UserState.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -425,6 +447,7 @@
 				AD6F630729C1211F0015A224 /* AuthTextField.swift in Sources */,
 				ADBAA6DF29C27C5300FD1B61 /* AuthState.swift in Sources */,
 				AD13319629C0FCD800F16B05 /* FloatingActionButton.swift in Sources */,
+				ADC945A829C8826F004FE89A /* UserState.swift in Sources */,
 				AD16997829BC81CB00BC8FB1 /* TweetsRowView.swift in Sources */,
 				AD6F630929C125FF0015A224 /* PrimaryButton.swift in Sources */,
 				AD6F630B29C126620015A224 /* GreetingView.swift in Sources */,
@@ -435,6 +458,7 @@
 				AD13319829C0FD3E00F16B05 /* NewTweet.swift in Sources */,
 				ADE84E8A29BF19FE00EF8025 /* SideMenuViewModel.swift in Sources */,
 				AD40F6E629BE5445008907C7 /* ExploreViewModel.swift in Sources */,
+				ADC945A629C88239004FE89A /* UserViewModel.swift in Sources */,
 				AD16998529BC8FA600BC8FB1 /* ExploreView.swift in Sources */,
 				AD6F630229C11A070015A224 /* LoginView.swift in Sources */,
 				AD40F6E829BE5742008907C7 /* UserRowView.swift in Sources */,

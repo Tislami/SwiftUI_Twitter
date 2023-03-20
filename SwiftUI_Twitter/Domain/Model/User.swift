@@ -9,7 +9,7 @@ import Foundation
 
 
 struct User : Codable, Identifiable {
-    var id: String
-    var email : String
-    var name : String
+    var id: String = ""
+    var email : String = ""
+    var name : String = ""
 }

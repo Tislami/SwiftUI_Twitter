@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct FloatingActionButton: View {
+    
+    let action : ()-> Void
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing){
             Button(
-                action: { },
+                action: action,
                 label: {
                     Circle()
                         .frame(width: 64, height: 64)
@@ -25,11 +28,5 @@ struct FloatingActionButton: View {
                 }
             )
         }
-    }
-}
-
-struct FloatingActionButton_Previews: PreviewProvider {
-    static var previews: some View {
-        FloatingActionButton()
     }
 }

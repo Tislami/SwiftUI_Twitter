@@ -8,12 +8,11 @@
 import Foundation
 
 struct AuthState {
-    var user: User?
+    var id: String?
     var email: String = ""
     var fullName: String = ""
     var password: String = ""
     var errorMessage: String = ""
     var presentAlert: Bool = false
-    var isLogged: Bool = false
     var isLoading: Bool = false
 }

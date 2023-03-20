@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject var viewModel: AuthViewModel
-    @State var isShowAlert : Bool = false
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         ZStack{
@@ -18,6 +17,7 @@ struct LoginView: View {
                 GreetingView(title: "Hello \nWelcome Back")
                 
                 VStack(spacing: 32){
+                    
                     AuthTextField(
                         iconName: "envelope",
                         value: $viewModel.authState.email,
@@ -43,11 +43,10 @@ struct LoginView: View {
                             .frame(maxWidth: .infinity,alignment: .trailing)
                     }
                 ).padding(.trailing,32)
-                    .padding(.vertical,24)
-                
+                .padding(.vertical,24)
                 
                 PrimaryButton(
-                    text: "Sign in",
+                    text: "Sign In",
                     onClick: {
                         viewModel.signIn()
                         print("sign in clicked")
@@ -58,7 +57,7 @@ struct LoginView: View {
                 Spacer()
                 
                 NavigationLink(
-                    destination: { RegistrationView(viewModel: viewModel) },
+                    destination: { RegistrationView() },
                     label: {
                         HStack{
                             Text("Don't have an account?")
@@ -87,15 +86,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: AuthViewModel())
+        LoginView()
     }
 }
-
-
-// private struct LoginContentView : View {
-//     @State var viewModel: AuthViewModel
-//
-//     var body: some View {
-//
-//     }
-// }
