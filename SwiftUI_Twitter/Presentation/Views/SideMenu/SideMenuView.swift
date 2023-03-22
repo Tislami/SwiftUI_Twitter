@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SideMenuView: View {
-        
+    let user : User
     var body: some View {
         VStack(alignment: .leading,spacing: 32){
-            HeadView()
+            HeadView(user: user)
             
             VStack(spacing: 40){
                 ForEach(SideMenuItems.allCases, id: \.rawValue){ item in
@@ -27,7 +27,7 @@ struct SideMenuView: View {
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-            SideMenuView()
+            SideMenuView(user: User())
         }
     }
 }
@@ -36,6 +36,8 @@ struct SideMenuView_Previews: PreviewProvider {
 
 
 private struct HeadView: View {
+    let user: User
+    
     var body: some View {
         VStack(alignment: .leading) {
             Circle()
@@ -43,13 +45,13 @@ private struct HeadView: View {
             
             
             VStack(alignment: .leading, spacing: 4){
-                Text("Keanu Reves")
+                Text(user.name)
                     .font(.headline)
                 
-                Text("@Neo").font(.caption).foregroundColor(.gray)
+                Text(user.nickName).font(.caption).foregroundColor(.gray)
             }
             
-            UserStatsView()
+            UserStatsView(following: user.following, followers: user.followers)
         }
     }
 }

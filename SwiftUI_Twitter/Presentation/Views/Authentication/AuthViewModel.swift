@@ -6,52 +6,61 @@
 //
 
 import Foundation
+import Combine
 
 class AuthViewModel: ObservableObject {
-    private let repo: AuthRepositoryImpl = AuthRepositoryImpl()
+    private let authRepo: AuthRepositoryImpl = AuthRepositoryImpl()
+    private let userRepo: UserRepository = UserRepository()
+    private var cancellables = Set<AnyCancellable>()
+    
     @Published var authState: AuthState = AuthState()
 
     init(){
+        print("AuthViewModel initialized")
         getAuthState()
-        print("Auth ViewModel initialized")
     }
     
     func getAuthState(){
-        repo.getAuthState { uid in
+        print("AuthViewModel getAuthState : getting")
+        authRepo.getAuthState { uid in
             if uid != nil{
-                print("GetAuthState success \(uid!)")
-                self.authState.id = uid
+                print("AuthViewModel getAuthState : success \(uid!)")
+                self.authState.uid = uid
+                self.authState.authStatus = .Logged
             }
         }
     }
     
     func signIn() {
+        print("AuthViewModel singIn : siging In")
         authState.isLoading = true
-        repo.signIn(email: authState.email, password: authState.password) { result in
+        authRepo.signIn(email: authState.email, password: authState.password) { result in
             self.authState.isLoading = false
             switch result {
             case .success(let uid):
-                print("Completion success \(uid)")
-                self.authState.id = uid
+                print("AuthViewModel singIn : success \(uid)")
+                self.authState.uid = uid
+                self.authState.authStatus = .Logged
             case .failure(let error):
-                print("Completion failure \(error)")
+                print("AuthViewModel singIn : failure \(error)")
                 self.authState.presentAlert = true
                 self.authState.errorMessage = error.localizedDescription
             }
         }
     }
     
-    
     func signUp(){
+        print("AuthViewModel singUp : siging up")
         authState.isLoading = true
-        repo.signUp(email: authState.email, password: authState.password, name: authState.fullName){ result in
+        authRepo.signUp(email: authState.email, password: authState.password, name: authState.fullName){ result in
             self.authState.isLoading = false
             switch result {
             case .success(let uid):
-                print("Completion success \(uid)")
-                self.authState.id = uid
+                print("AuthViewModel singUp : success \(uid)")
+                self.authState.uid = uid
+                self.authState.authStatus = .Registered
             case .failure(let error):
-                print("Completion failure \(error)")
+                print("AuthViewModel singUp : failure \(error)")
                 self.authState.presentAlert = true
                 self.authState.errorMessage = error.localizedDescription
             }
@@ -59,15 +68,17 @@ class AuthViewModel: ObservableObject {
     }
     
     func signOut(){
+        print("AuthViewModel singOut : siging out")
         self.authState.isLoading = true
-        repo.signOut { result in
+        authRepo.signOut { result in
             self.authState.isLoading = false
             switch result {
             case .success:
-                print("Completion success singout")
-                self.authState.id = nil
+                print("AuthViewModel signOut : success")
+                self.authState.uid = nil
+                self.authState.presentAlert = false
             case .failure(let error):
-                print("Completion failure \(error)")
+                print("AuthViewModel signOut : failure \(error)")
                 self.authState.presentAlert = true
                 self.authState.errorMessage = error.localizedDescription
             }

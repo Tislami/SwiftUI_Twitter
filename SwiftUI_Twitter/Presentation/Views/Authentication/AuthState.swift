@@ -8,11 +8,21 @@
 import Foundation
 
 struct AuthState {
-    var id: String?
+    var uid: String? = nil
     var email: String = ""
     var fullName: String = ""
     var password: String = ""
     var errorMessage: String = ""
     var presentAlert: Bool = false
     var isLoading: Bool = false
+    var authStatus : AuthStatus = .Logged
 }
+
+
+enum AuthStatus {
+    case Logged
+    case Registered
+}
+
+
+

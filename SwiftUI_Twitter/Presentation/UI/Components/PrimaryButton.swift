@@ -10,6 +10,7 @@ import SwiftUI
 struct PrimaryButton: View {
     let text : String
     let onClick : ()-> Void
+    var disabled: Bool = false
     
     var body: some View {
         Button(
@@ -28,6 +29,7 @@ struct PrimaryButton: View {
                     )
             }
         ).shadow(color: .gray.opacity(0.5), radius: 10)
+            .disabled(disabled)
     }
 }
 

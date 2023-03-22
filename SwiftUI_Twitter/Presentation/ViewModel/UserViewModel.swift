@@ -15,32 +15,61 @@ class UserViewModel: ObservableObject {
     @Published var userState: UserState = UserState()
     
     init(){
-        print("Auth ViewModel initialized")
-
+        print("UserViewModel initialized")
     }
     
     func getUser(id: String){
+        print("UserViewModel getUser : getting user \(id)")
         repo.getUser(id: id)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
-                        print("AnyPublisher failure \(error)")
+                        print("UserViewModel getUser : failure \(error)")
                         self.userState.presentAlert = true
                         self.userState.errorMessage = error.localizedDescription
                     case .finished:
-                        print("AnyPublisher finished.")
+                        print("UserViewModel getUser : finished.")
                         self.userState.isLoading = false
                     }
                 },
                 receiveValue: { user in
-                    print("AnyPublisher success \(user)")
+                    print("UserViewModel getUser : success \(user)")
                     self.userState.user = user
                 }
             ).store(in: &cancellables)
     }
     
+    
+    func createUser(user: User){
+        userState.isLoading = true
+        print("UserViewModel CreasteUser creating \(user).")
+        repo.createUser(user: user)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { completion in
+                    self.userState.isLoading = false
+                    switch completion {
+                    case .failure(let error):
+                        print("UserViewModel CreateUser : failure \(error)")
+                        self.userState.presentAlert = true
+                        self.userState.errorMessage = error.localizedDescription
+                    case .finished:
+                        print("UserViewModel CreasteUser : finished.")
+                        self.userState.isLoading = false
+                    }
+                },
+                receiveValue: { user in
+                    print("UserViewModel CreateUser : success \(user)")
+                    self.userState.user = user
+                }
+            ).store(in: &cancellables)
+    }
+    
+    func closeUser(){
+        userState.user = nil
+    }
     
 }
 

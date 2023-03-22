@@ -121,7 +121,7 @@ private struct UserInfoDetailView : View{
             .font(.caption)
             .foregroundColor(.gray)
             
-            UserStatsView()
+            UserStatsView(following: "2", followers: "12")
         }
     }
 }

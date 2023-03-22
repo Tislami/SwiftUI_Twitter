@@ -12,4 +12,7 @@ struct User : Codable, Identifiable {
     var id: String = ""
     var email : String = ""
     var name : String = ""
+    var nickName : String = ""
+    var followers : String = ""
+    var following : String = ""
 }

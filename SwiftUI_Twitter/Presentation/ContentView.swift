@@ -9,22 +9,49 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
-        Group{
-            if authViewModel.authState.id == nil{
+        ZStack{
+            if authViewModel.authState.uid == nil {
                 LoginView()
-            }
-            else {
-                MainInterfaceView()
-                    .onAppear{
-                        print("onAppear")
+            }else {
+                if userViewModel.userState.user == nil {
+                    ZStack{
+                        switch authViewModel.authState.authStatus{
+                        case .Logged:
+                            ProgressView()
+                                .onAppear{
+                                    print("ContentView Logged : getting user")
+                                    userViewModel.getUser(id: authViewModel.authState.uid!)}
+                        case .Registered:
+                            ProgressView()
+                                .onAppear{
+                                    print("ContentView Registered : creating user")
+                                    userViewModel.createUser(user: User(
+                                        id: authViewModel.authState.uid!,
+                                        email: authViewModel.authState.email,
+                                        name: authViewModel.authState.fullName
+                                    ))}
+                        }
+                    }.alert(isPresented: $userViewModel.userState.presentAlert) {
+                        Alert(
+                            title: Text("Error"),
+                            message: Text(userViewModel.userState.errorMessage),
+                            dismissButton: .default(Text("OK"), action: authViewModel.signOut)
+                        )
                     }
+                }
+                else if (userViewModel.userState.user != nil){
+                    MainInterfaceView(user: userViewModel.userState.user!)
+                        .onDisappear{ userViewModel.closeUser() }
+                }
             }
         }
     }
 }
 
+    
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
@@ -32,8 +59,10 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
-
+    
 private struct MainInterfaceView:  View {
+    
+    let user: User
     
     @State private var showSideMenu : Bool = false
     @State private var showNewTweetView: Bool = false
@@ -56,7 +85,7 @@ private struct MainInterfaceView:  View {
                 }
             }
             
-            SideMenuView()
+            SideMenuView(user: user)
                 .offset(x: showSideMenu ? 0: -300)
                 .frame(width: 300)
                 .background( showSideMenu ? Color(.white): Color(.clear))
@@ -79,3 +108,4 @@ private struct MainInterfaceView:  View {
         .onAppear{ showSideMenu = false }
     }
 }
+

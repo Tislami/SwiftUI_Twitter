@@ -17,7 +17,6 @@ struct LoginView: View {
                 GreetingView(title: "Hello \nWelcome Back")
                 
                 VStack(spacing: 32){
-                    
                     AuthTextField(
                         iconName: "envelope",
                         value: $viewModel.authState.email,
@@ -48,9 +47,10 @@ struct LoginView: View {
                 PrimaryButton(
                     text: "Sign In",
                     onClick: {
-                        viewModel.signIn()
                         print("sign in clicked")
-                    }
+                        viewModel.signIn()
+                    },
+                    disabled: viewModel.authState.isLoading
                 )
                 .padding(.horizontal,32)
                 
@@ -69,18 +69,18 @@ struct LoginView: View {
                     }
                 )
             }
-            .alert(isPresented: $viewModel.authState.presentAlert) {
-                Alert(
-                    title: Text("Error"),
-                    message: Text(viewModel.authState.errorMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
             
             if viewModel.authState.isLoading {
                 ProgressView()
             }
         }
+        .alert(isPresented: $viewModel.authState.presentAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text(viewModel.authState.errorMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }.toolbar(.hidden)
     }
 }
 

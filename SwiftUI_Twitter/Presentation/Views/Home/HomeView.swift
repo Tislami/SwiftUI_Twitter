@@ -21,9 +21,8 @@ struct HomeView: View {
             }
             
             FloatingActionButton(action:{ authViewModel.signOut()
-                print(authViewModel.authState.isLoading)
-            })
-                .padding()
+                print(authViewModel.authState.isLoading)}
+            ).padding()
         }
         
     }

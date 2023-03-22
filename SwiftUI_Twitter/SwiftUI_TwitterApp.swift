@@ -30,6 +30,7 @@ struct SwiftUI_TwitterApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @ObservedObject var authViewModel: AuthViewModel = AuthViewModel()
+    @ObservedObject var userViewModel: UserViewModel = UserViewModel()
 
     
     var body: some Scene {
@@ -38,6 +39,7 @@ struct SwiftUI_TwitterApp: App {
                 ContentView()
             }
             .environmentObject(authViewModel)
+            .environmentObject(userViewModel)
         }
     }
 }

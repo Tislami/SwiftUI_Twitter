@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct UserStatsView: View {
+    let following: String
+    let followers: String
     var body: some View {
         HStack(spacing: 16){
             
             HStack{
                 Text("2").font(.subheadline).bold()
                 
-                Text("Following")
+                Text(following)
                     .font(.caption)
                     .foregroundColor(.gray)
             }
@@ -22,7 +24,7 @@ struct UserStatsView: View {
             HStack{
                 Text("12").font(.subheadline).bold()
                 
-                Text("Followers")
+                Text(followers)
                     .font(.caption)
                     .foregroundColor(.gray)
             }
@@ -30,8 +32,3 @@ struct UserStatsView: View {
     }
 }
 
-struct UserStats_Previews: PreviewProvider {
-    static var previews: some View {
-        UserStatsView()
-    }
-}
