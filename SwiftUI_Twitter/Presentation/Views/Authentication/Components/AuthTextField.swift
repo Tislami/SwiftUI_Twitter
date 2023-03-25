@@ -16,7 +16,6 @@ struct AuthTextField: View {
     
     var body: some View {
         VStack {
-            
             HStack{
                 Image(systemName: iconName)
                     .resizable()
@@ -32,10 +31,7 @@ struct AuthTextField: View {
                     TextField(value, text: $value, prompt: Text(placeHolder))
                         .padding(.vertical,4)
                 }
-                
-                    
             }
-            
             Divider()
                 .background(Color(.darkGray))
         }

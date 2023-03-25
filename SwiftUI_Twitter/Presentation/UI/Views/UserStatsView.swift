@@ -14,7 +14,7 @@ struct UserStatsView: View {
         HStack(spacing: 16){
             
             HStack{
-                Text("2").font(.subheadline).bold()
+                Text("Following").font(.subheadline).bold()
                 
                 Text(following)
                     .font(.caption)
@@ -22,7 +22,7 @@ struct UserStatsView: View {
             }
             
             HStack{
-                Text("12").font(.subheadline).bold()
+                Text("Followers").font(.subheadline).bold()
                 
                 Text(followers)
                     .font(.caption)

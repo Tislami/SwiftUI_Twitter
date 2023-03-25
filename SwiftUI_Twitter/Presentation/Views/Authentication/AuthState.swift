@@ -8,9 +8,9 @@
 import Foundation
 
 struct AuthState {
-    var uid: String? = nil
-    var email: String = ""
-    var fullName: String = ""
+    var uid: String? = "hQ2koqCHwnYVGRwNEwrX0kRUk6x1"
+    var email: String = "deneme@gmail.com"
+    var fullName: String = "Deneme"
     var password: String = ""
     var errorMessage: String = ""
     var presentAlert: Bool = false

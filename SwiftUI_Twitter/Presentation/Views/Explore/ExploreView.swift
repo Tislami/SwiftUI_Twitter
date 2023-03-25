@@ -8,27 +8,35 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @StateObject var exploreViewModel: ExploreViewModel = ExploreViewModel()
+    
     var body: some View {
-        NavigationView{
-            VStack{
-                ScrollView{
-                    LazyVStack(spacing: 16){
-                        ForEach(0...25, id: \.self){ _ in
-                            NavigationLink(
-                                destination: {
-                                    ProfileView()
-                                },
-                                label: {
-                                    UserRowView()
-                                }
-                            )
+            ZStack{
+                VStack(spacing: 16){
+                    SearchTextField(onSubmit: exploreViewModel.getUserByName)
+                    
+                    ScrollView{
+                        LazyVStack(spacing: 16){
+                            ForEach(
+                                exploreViewModel.exploreState.users,
+                                id: \.name
+                            ){ user in
+                                NavigationLink(
+                                    destination: { ProfileView(user: user) },
+                                    label: { UserRowView(user: user) }
+                                )
+                            }
                         }
-                    }.padding(.horizontal)
+                    }
+                }
+                
+                if exploreViewModel.exploreState.isLoading {
+                    ProgressView()
                 }
             }
+            .padding(.horizontal)
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
-        }
     }
 }
 

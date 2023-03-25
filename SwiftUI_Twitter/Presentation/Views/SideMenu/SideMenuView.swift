@@ -51,7 +51,10 @@ private struct HeadView: View {
                 Text(user.nickName).font(.caption).foregroundColor(.gray)
             }
             
-            UserStatsView(following: user.following, followers: user.followers)
+            UserStatsView(
+                following: user.following.description,
+                followers: user.followers.description
+            )
         }
     }
 }
@@ -78,13 +81,13 @@ private struct SideMenuRowItemView: View {
     func getDestination() -> some View {
         switch item {
         case .profile:
-            return ProfileView()
+            return ProfileView(user: User())
         case .lists:
-            return ProfileView()
+            return ProfileView(user: User())
         case .bookmarks:
-            return ProfileView()
+            return ProfileView(user: User())
         case .logout:
-            return ProfileView()
+            return ProfileView(user: User())
         }
     }
 }

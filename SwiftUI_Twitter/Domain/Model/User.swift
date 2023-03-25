@@ -8,11 +8,11 @@
 import Foundation
 
 
-struct User : Codable, Identifiable {
+struct User : Codable, Hashable, Identifiable {
     var id: String = ""
     var email : String = ""
     var name : String = ""
     var nickName : String = ""
-    var followers : String = ""
-    var following : String = ""
+    var following : [String] = []
+    var followers : [String] = []
 }

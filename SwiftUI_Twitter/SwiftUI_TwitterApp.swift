@@ -39,7 +39,7 @@ struct SwiftUI_TwitterApp: App {
                 ContentView()
             }
             .environmentObject(authViewModel)
-            .environmentObject(userViewModel)
+           .environmentObject(userViewModel)
         }
     }
 }

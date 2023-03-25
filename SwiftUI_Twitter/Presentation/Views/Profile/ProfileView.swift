@@ -8,19 +8,39 @@
 import SwiftUI
 
 struct ProfileView: View {
+    var user: User
+    
+    @EnvironmentObject var userViewModel : UserViewModel
+    @Environment (\.presentationMode) private var presentationMode
     
     var body: some View {
-        NavigationView{
-            VStack(alignment: .leading,spacing: 32){
-                HeadView()
-                    .padding(.horizontal)
-                    .background(Color(.systemBlue).ignoresSafeArea().offset(y: -90))
+        ZStack(alignment: .top){
+            Color(.systemBlue)
+                .frame(height: 170)
+                .ignoresSafeArea()
+            
+            VStack(alignment: .leading,spacing: 16){
+                HeadView(
+                    user: user,
+                    onFollowUser: userViewModel.followUser
+                )
                 
-                UserInfoDetailView().padding(.horizontal)
-                
-                BodyView().padding(.horizontal)
+                BodyView()
             }
-            .background(.white)
+            .padding(.top,36)
+            .padding(.horizontal)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading){
+                Button(
+                    action: {presentationMode.wrappedValue.dismiss() },
+                    label: {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.white)
+                    }
+                )
+            }
         }
     }
 }
@@ -28,100 +48,111 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        NavigationView{
+            ProfileView(
+                user: User(
+                    email: "deneme@Gmail.com",
+                    name: "Deneme",
+                    nickName: "@Deneme",
+                    following: [],
+                    followers: []
+                )
+            )
+        }
     }
 }
 
 
 
 private struct HeadView: View {
-    @Environment(\.presentationMode) var mode
+    let user: User
+    let onFollowUser: (String) -> Void
 
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading,spacing: 16){
+            
             HStack(alignment: .bottom, spacing: 8){
-                VStack(spacing: 32){
-                    
-                    Button(
-                        action: { mode.wrappedValue.dismiss() },
-                        label: { Image(systemName: "arrow.left")
-                                .resizable()
-                                .frame(width: 20,height: 20)
-                                .foregroundColor(.white)
-                                .offset(x:-20)
-                            
-                        }
-                    )
-                    
-                    Circle().frame(width: 75,height: 75)
-                }
+                Circle().frame(width: 75,height: 75)
                 
                 Spacer()
-            
-                Image(systemName: "bell.badge")
-                    .font(.title3)
-                    .padding(6)
-                    .overlay{
-                        Circle().stroke(Color.gray,lineWidth: 0.75)
-                    }
                 
-                Button(
-                    action: {  },
-                    label: {
-                        Text("Edit Profile")
-                            .font(.subheadline).bold()
-                            .frame(width: 120,height: 32)
-                            .foregroundColor(.black)
-                            .overlay{
-                                RoundedRectangle(cornerRadius: 20).stroke(Color.gray,lineWidth: 0.75)
+                if user.id ==  {
+                    NavigationLink(
+                        destination: { EditProfileView() },
+                        label: {
+                            Text("Edit Profile")
+                                .font(.subheadline).bold()
+                                .frame(width: 120,height: 32)
+                                .foregroundColor(.black)
+                                .overlay{
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.gray,lineWidth: 0.75)
+                                }
+                        }
+                    )
+                } else {
+                    HStack {
+                        Button(
+                            action: {},
+                            label: {
+                                Image(systemName: "envelope")
+                                    .foregroundColor(Color(.black))
+                                    .padding(8)
+                                    .overlay(
+                                        Circle().strokeBorder()
+                                            .foregroundColor(.gray)
+                                    )
                             }
+                        )
+                        
+                        Button(
+                            action: {  },
+                            label: {
+                                Text("Follow")
+                                    .font(.subheadline).bold()
+                                    .frame(width: 120,height: 32)
+                                    .foregroundColor(Color(.white))
+                                    .background(.black)
+                                    .cornerRadius(20)
+                            }
+                        )
                     }
-                )
+                }
             }
             
             VStack(alignment: .leading){
-                HStack{
-                    Text("Keanu Revees")
-                        .font(.title2).bold()
-                    
-                    Image(systemName: "checkmark.seal.fill")
-                        .foregroundColor(Color(.systemBlue))
-                }
+                Text(user.name)
+                    .font(.title2).bold()
                 
-                Text("@Neo")
+                Text(user.nickName)
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-        }
-    }
-}
-
-
-private struct UserInfoDetailView : View{
-    
-    var body: some View{
-        VStack(alignment: .leading, spacing: 8){
             
-            
-            Text("Your moms favorite villian")
-                .font(.subheadline).bold()
-            
-            HStack(spacing: 16){
+            VStack(alignment: .leading, spacing: 8){
+                Text("Your moms favorite villian")
+                    .font(.subheadline).bold()
                 
-                HStack{
-                    Image(systemName: "mappin.and.ellipse")
-                    Text("New York")
+                HStack(spacing: 16){
+                    
+                    HStack{
+                        Image(systemName: "mappin.and.ellipse")
+                        Text("New York")
+                    }
+                    
+                    HStack{
+                        Image(systemName: "link")
+                        Text("www.matrix.com")
+                    }
                 }
+                .font(.caption)
+                .foregroundColor(.gray)
                 
-                HStack{
-                    Image(systemName: "link")
-                    Text("www.matrix.com")
-                }
+                UserStatsView(
+                    following: user.following.count.description,
+                    followers: user.followers.count.description
+                )
             }
-            .font(.caption)
-            .foregroundColor(.gray)
-            
-            UserStatsView(following: "2", followers: "12")
         }
     }
 }

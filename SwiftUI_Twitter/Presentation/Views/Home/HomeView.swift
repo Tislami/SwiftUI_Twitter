@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @EnvironmentObject var authViewModel: AuthViewModel
+    //@EnvironmentObject var authViewModel: AuthViewModel
     var body: some View {
         ZStack(alignment: .bottomTrailing){
             ScrollView{
@@ -20,11 +20,9 @@ struct HomeView: View {
                 }
             }
             
-            FloatingActionButton(action:{ authViewModel.signOut()
-                print(authViewModel.authState.isLoading)}
+            FloatingActionButton(action:{}
             ).padding()
         }
-        
     }
 }
 

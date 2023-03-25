@@ -67,6 +67,24 @@ class UserViewModel: ObservableObject {
             ).store(in: &cancellables)
     }
     
+    func followUser(userId: String) {
+        userState.isLoading = true
+        print("UserViewModel followUser: starting")
+        repo.folluwUser(userId: userId) { error in
+            self.userState.isLoading = false
+            if error != nil{
+                self.userState.presentAlert = true
+                self.userState.errorMessage = error!.localizedDescription
+                print("UserViewModel followUser: error \(error!)")
+            }
+            print("UserViewModel followUser: success")
+        }
+    }
+    
+    func isFollowing(uid: String){
+        
+    }
+    
     func closeUser(){
         userState.user = nil
     }
