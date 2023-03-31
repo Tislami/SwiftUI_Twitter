@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ProfileView: View {
     var user: User
-    
-    @EnvironmentObject var userViewModel : UserViewModel
     @Environment (\.presentationMode) private var presentationMode
     
     var body: some View {
@@ -20,10 +18,7 @@ struct ProfileView: View {
                 .ignoresSafeArea()
             
             VStack(alignment: .leading,spacing: 16){
-                HeadView(
-                    user: user,
-                    onFollowUser: userViewModel.followUser
-                )
+                HeadView(user: user )
                 
                 BodyView()
             }
@@ -66,7 +61,6 @@ struct ProfileView_Previews: PreviewProvider {
 
 private struct HeadView: View {
     let user: User
-    let onFollowUser: (String) -> Void
 
     var body: some View {
         VStack(alignment: .leading,spacing: 16){
@@ -76,48 +70,50 @@ private struct HeadView: View {
                 
                 Spacer()
                 
-                if user.id ==  {
-                    NavigationLink(
-                        destination: { EditProfileView() },
-                        label: {
-                            Text("Edit Profile")
-                                .font(.subheadline).bold()
-                                .frame(width: 120,height: 32)
-                                .foregroundColor(.black)
-                                .overlay{
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.gray,lineWidth: 0.75)
-                                }
-                        }
-                    )
-                } else {
-                    HStack {
-                        Button(
-                            action: {},
-                            label: {
-                                Image(systemName: "envelope")
-                                    .foregroundColor(Color(.black))
-                                    .padding(8)
-                                    .overlay(
-                                        Circle().strokeBorder()
-                                            .foregroundColor(.gray)
-                                    )
+                NavigationLink(
+                    destination: { EditProfileView() },
+                    label: {
+                        Text("Edit Profile")
+                            .font(.subheadline).bold()
+                            .frame(width: 120,height: 32)
+                            .foregroundColor(.black)
+                            .overlay{
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.gray,lineWidth: 0.75)
                             }
-                        )
-                        
-                        Button(
-                            action: {  },
-                            label: {
-                                Text("Follow")
-                                    .font(.subheadline).bold()
-                                    .frame(width: 120,height: 32)
-                                    .foregroundColor(Color(.white))
-                                    .background(.black)
-                                    .cornerRadius(20)
-                            }
-                        )
                     }
-                }
+                )
+                
+//                if user.id ==  {
+//
+//                } else {
+//                    HStack {
+//                        Button(
+//                            action: {},
+//                            label: {
+//                                Image(systemName: "envelope")
+//                                    .foregroundColor(Color(.black))
+//                                    .padding(8)
+//                                    .overlay(
+//                                        Circle().strokeBorder()
+//                                            .foregroundColor(.gray)
+//                                    )
+//                            }
+//                        )
+//
+//                        Button(
+//                            action: {  },
+//                            label: {
+//                                Text("Follow")
+//                                    .font(.subheadline).bold()
+//                                    .frame(width: 120,height: 32)
+//                                    .foregroundColor(Color(.white))
+//                                    .background(.black)
+//                                    .cornerRadius(20)
+//                            }
+//                        )
+//                    }
+//                }
             }
             
             VStack(alignment: .leading){

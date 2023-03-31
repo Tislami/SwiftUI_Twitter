@@ -12,45 +12,45 @@ struct ContentView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
-            MainTabView()
+//            MainTabView()
                         
-//        ZStack{
-//            if authViewModel.authState.uid == nil {
-//                LoginView()
-//            }else {
-//                if userViewModel.userState.user == nil {
-//                    ZStack{
-//                        switch authViewModel.authState.authStatus{
-//                        case .Logged:
-//                            ProgressView()
-//                                .onAppear{
-//                                    print("ContentView Logged : getting user")
-//                                    userViewModel.getUser(id: authViewModel.authState.uid!)}
-//                        case .Registered:
-//                            ProgressView()
-//                                .onAppear{
-//                                    print("ContentView Registered : creating user")
-//                                    userViewModel.createUser(user: User(
-//                                        id: authViewModel.authState.uid!,
-//                                        email: authViewModel.authState.email,
-//                                        name: authViewModel.authState.fullName
-//                                    ))}
-//                        }
-//                    }.alert(isPresented: $userViewModel.userState.presentAlert) {
-//                        Alert(
-//                            title: Text("Error"),
-//                            message: Text(userViewModel.userState.errorMessage),
-//                            dismissButton: .default(Text("OK"),
-//                            action: authViewModel.signOut)
-//                        )
-//                    }
-//                }
-//                else if (userViewModel.userState.user != nil){
-//                    MainInterfaceView(user: userViewModel.userState.user!)
-//                        .onDisappear{ userViewModel.closeUser() }
-//                }
-//            }
-//        }
+        ZStack{
+            if authViewModel.authState.uid == nil {
+                LoginView()
+            }else {
+                if userViewModel.userState.user == nil {
+                    ZStack{
+                        switch authViewModel.authState.authStatus{
+                        case .Logged:
+                            ProgressView()
+                                .onAppear{
+                                    print("ContentView Logged : getting user")
+                                    userViewModel.getUser(id: authViewModel.authState.uid!)}
+                        case .Registered:
+                            ProgressView()
+                                .onAppear{
+                                    print("ContentView Registered : creating user")
+                                    userViewModel.createUser(user: User(
+                                        id: authViewModel.authState.uid!,
+                                        email: authViewModel.authState.email,
+                                        name: authViewModel.authState.fullName
+                                    ))}
+                        }
+                    }.alert(isPresented: $userViewModel.userState.presentAlert) {
+                        Alert(
+                            title: Text("Error"),
+                            message: Text(userViewModel.userState.errorMessage),
+                            dismissButton: .default(Text("OK"),
+                            action: authViewModel.signOut)
+                        )
+                    }
+                }
+                else if (userViewModel.userState.user != nil){
+                    MainInterfaceView(user: userViewModel.userState.user!)
+                        .onDisappear{ userViewModel.closeUser() }
+                }
+            }
+        }
     }
 }
 

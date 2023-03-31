@@ -15,7 +15,7 @@ struct SideMenuView: View {
             
             VStack(spacing: 40){
                 ForEach(SideMenuItems.allCases, id: \.rawValue){ item in
-                    SideMenuRowItemView( item: item )
+                    SideMenuRowItemView( user: user, item: item )
                 }
             }
             Spacer()
@@ -60,7 +60,7 @@ private struct HeadView: View {
 }
 
 private struct SideMenuRowItemView: View {
-    
+    @State var user: User
     let item : SideMenuItems
     var body: some View {
         
@@ -81,7 +81,7 @@ private struct SideMenuRowItemView: View {
     func getDestination() -> some View {
         switch item {
         case .profile:
-            return ProfileView(user: User())
+            return ProfileView(user: user)
         case .lists:
             return ProfileView(user: User())
         case .bookmarks:
